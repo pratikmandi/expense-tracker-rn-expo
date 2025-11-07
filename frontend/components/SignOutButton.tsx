@@ -7,7 +7,6 @@ export const SignOutButton = () => {
   const handleSignOut = async () => {
     try {
       await signOut();
-      Linking.openURL(Linking.createURL("/"));
     } catch (err) {
       console.error(JSON.stringify(err, null, 2));
     }

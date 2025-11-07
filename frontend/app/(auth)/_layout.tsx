@@ -8,5 +8,24 @@ export default function AuthRoutesLayout() {
     return <Redirect href={"/"} />;
   }
 
-  return <Stack />;
+  return (
+    <Stack>
+      <Stack.Screen
+        name="sign-in"
+        options={{
+          title: "Sign In",
+          headerLargeTitle: true,
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="sign-up"
+        options={{
+          title: "Sign Up",
+          headerLargeTitle: true,
+          headerTransparent: true,
+        }}
+      />
+    </Stack>
+  );
 }

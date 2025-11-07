@@ -31,26 +31,31 @@ export default function Page() {
   };
 
   return (
-    <View>
-      <Text>Sign in</Text>
+    <View className="p-4 justify-center gap-3 flex-1 bg-white">
+      {/* <Text className="text-3xl font-semibold">Sign in</Text> */}
       <TextInput
         autoCapitalize="none"
         value={emailAddress}
         placeholder="Enter email"
         onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
+        className="border border-neutral-500 p-4 rounded-lg"
       />
       <TextInput
         value={password}
         placeholder="Enter password"
         secureTextEntry={true}
         onChangeText={(password) => setPassword(password)}
+        className="border border-neutral-500 p-4 rounded-lg"
       />
-      <TouchableOpacity onPress={onSignInPress}>
-        <Text>Continue</Text>
+      <TouchableOpacity
+        onPress={onSignInPress}
+        className="bg-blue-500 rounded-full p-4 items-center"
+      >
+        <Text className="text-white font-semibold">Continue</Text>
       </TouchableOpacity>
-      <View style={{ display: "flex", flexDirection: "row", gap: 3 }}>
+      <View className="gap-1 flex-row">
         <Link href="./sign-up">
-          <Text>Sign up</Text>
+          <Text className="text-blue-500 font-semibold">Sign up</Text>
         </Link>
       </View>
     </View>
