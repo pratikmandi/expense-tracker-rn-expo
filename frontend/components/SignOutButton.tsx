@@ -1,16 +1,16 @@
 import { useClerk } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
 import * as Linking from "expo-linking";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 
 export const SignOutButton = () => {
   const { signOut } = useClerk();
+
   const handleSignOut = async () => {
-    try {
-      await signOut();
-    } catch (err) {
-      console.error(JSON.stringify(err, null, 2));
-    }
+    Alert.alert("Logout", "Are you sure want to logout?", [
+      { text: "Cancel", style: "cancel" },
+      { text: "Logout", style: "destructive", onPress: signOut },
+    ]);
   };
   return (
     <View className="flex-1 my-20">
