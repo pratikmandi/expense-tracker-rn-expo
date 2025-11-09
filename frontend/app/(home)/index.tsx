@@ -90,16 +90,23 @@ export default function Page() {
         <Text className="font-semibold text-lg">Recent Transactions</Text>
       </View>
 
-      <FlatList
-        contentContainerStyle={{ paddingBottom: 20 }}
-        data={transactions}
-        renderItem={({ item }) => (
-          <TransactionItem item={item} onDelete={handleDelete} />
-        )}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      />
+      <View className="flex-1">
+        <FlatList
+          contentContainerStyle={{ paddingBottom: 20 }}
+          data={transactions}
+          renderItem={({ item }) => (
+            <TransactionItem item={item} onDelete={handleDelete} />
+          )}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+          ListEmptyComponent={
+            <View className="items-center py-8">
+              <Text className="text-gray-500">No transactions yet</Text>
+            </View>
+          }
+        />
+      </View>
     </SafeAreaView>
   );
 }
