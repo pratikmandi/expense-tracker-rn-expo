@@ -5,13 +5,14 @@ import {
   Alert,
   FlatList,
   Image,
+  RefreshControl,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import { SignOutButton } from "../../components/SignOutButton";
 import { useTransactions } from "../../hooks/useTransactions.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { SummaryCard } from "../../components/SummaryCard";
@@ -20,13 +21,27 @@ import { TransactionItem } from "../../components/TransactionItem";
 export default function Page() {
   const { user } = useUser();
   const userId = user?.id;
-
+  const [refreshing, setRefreshing] = useState(false);
   const { transactions, summary, isLoading, loadData, deleteTransaction } =
     useTransactions(userId);
 
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await loadData();
+    setRefreshing(false);
+  };
+
   useEffect(() => {
-    if (userId) loadData();
-  }, [userId, loadData]);
+    loadData();
+  }, [loadData]);
+
+  if (isLoading && !refreshing) {
+    return (
+      <SafeAreaView className="flex-1 justify-center items-center">
+        <ActivityIndicator size="large" />
+      </SafeAreaView>
+    );
+  }
 
   const handleDelete = (userId) => {
     Alert.alert(
@@ -42,8 +57,6 @@ export default function Page() {
       ]
     );
   };
-
-  if (isLoading) return <ActivityIndicator />;
 
   return (
     <SafeAreaView className="bg-lime-50 flex-1">
@@ -83,6 +96,9 @@ export default function Page() {
         renderItem={({ item }) => (
           <TransactionItem item={item} onDelete={handleDelete} />
         )}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
     </SafeAreaView>
   );
