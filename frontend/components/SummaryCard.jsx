@@ -6,7 +6,9 @@ export const SummaryCard = ({ summary }) => {
     <View className="rounded-2xl border-none p-8 mx-5 bg-lime-200">
       <Text className="text-black my-1">Total Balance</Text>
       <Text className="font-semibold text-4xl">
-        ${parseFloat(summary.balance).toFixed(2)}
+        {summary.balance < 0
+          ? `-$${Math.abs(summary.balance).toFixed(2)}`
+          : `$${parseFloat(summary.balance).toFixed(2)}`}
       </Text>
       {/* <Text className="font-semibold text-4xl">2000.00</Text> */}
       <View className="flex-row justify-between mt-5">
