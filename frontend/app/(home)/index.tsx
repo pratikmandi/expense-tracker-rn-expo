@@ -1,5 +1,5 @@
 import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import {
   ActivityIndicator,
   Alert,
@@ -24,6 +24,7 @@ export default function Page() {
   const [refreshing, setRefreshing] = useState(false);
   const { transactions, summary, isLoading, loadData, deleteTransaction } =
     useTransactions(userId);
+  const router = useRouter();
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -76,7 +77,10 @@ export default function Page() {
           </Text>
         </View>
         <View className="px-8 ml-8 py-16">
-          <TouchableOpacity className="flex-row gap-2 border-none bg-lime-400 rounded-full p-4 items-center">
+          <TouchableOpacity
+            className="flex-row gap-2 border-none bg-lime-400 rounded-full p-4 items-center"
+            onPress={() => router.push("/create")}
+          >
             <Ionicons name="add-circle" size={20} />
             <Text className="font-semibold">Add</Text>
           </TouchableOpacity>
