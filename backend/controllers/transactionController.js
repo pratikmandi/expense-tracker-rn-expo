@@ -87,7 +87,7 @@ export async function getSummaryByUserId(req, res) {
         res.status(200).json({
             balance: balanceResult[0].balance,
             income: incomeResult[0].income,
-            expense: expenseResult[0].expenses,
+            expenses: expenseResult[0].expenses,
         });
     } catch (error) {
         console.log("Error fetching summary", error);
