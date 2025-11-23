@@ -1,6 +1,6 @@
 import { useSignIn } from "@clerk/clerk-expo";
 import { Link, useRouter } from "expo-router";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
 import React from "react";
 
 export default function Page() {
@@ -25,8 +25,9 @@ export default function Page() {
       } else {
         console.error(JSON.stringify(signInAttempt, null, 2));
       }
-    } catch (err) {
-      console.error(JSON.stringify(err, null, 2));
+    } catch (err: any) {
+      // console.error("Sign-in error:", err?.message || err);
+      Alert.alert("Invalid Login", err?.message || err);
     }
   };
 
